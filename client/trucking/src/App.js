@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   hello = () => {
-    fetch('http://localhost:8080/api')
+    fetch('/api')
       .then(response => response.text())
       .then(message => {
         this.setState({message: message});
