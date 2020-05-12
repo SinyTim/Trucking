@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"https://trucking-famcs.herokuapp.com"})
 @RestController
 public class CargoController {
 
