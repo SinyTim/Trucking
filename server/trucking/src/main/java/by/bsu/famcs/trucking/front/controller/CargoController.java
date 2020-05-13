@@ -18,15 +18,16 @@ public class CargoController {
     @GetMapping(path = "/users/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<CargoBack> getCargoes(@PathVariable String id) {
-        return cargoService.getAllCargoes(id);
+    public ResponseEntity<?> getCargoes(@PathVariable String id) {
+        return ResponseEntity.ok(cargoService.getAllCargoes(id));
     }
 
     @PostMapping(path = "/users/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public void addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+    public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
         cargo.setOwnerId(id);
         cargoService.addCargo(cargo);
+        return ResponseEntity.ok("Successfully added");
     }
 }

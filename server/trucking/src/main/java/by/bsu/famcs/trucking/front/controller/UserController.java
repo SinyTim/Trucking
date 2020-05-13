@@ -4,6 +4,7 @@ import by.bsu.famcs.trucking.back.entity.UserBack;
 import by.bsu.famcs.trucking.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,16 +19,16 @@ public class UserController {
     @GetMapping(path = "/users",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<UserBack> getUsers() {
+    public ResponseEntity<?> getUsers() {
         System.out.println("<--> getUsers");
-        return userRepository.findAll();
+        return ResponseEntity.ok(userRepository.findAll());
     }
 
     @GetMapping(path = "/users/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Optional<UserBack> getUser(@PathVariable String id) {
+    public ResponseEntity<?> getUser(@PathVariable String id) {
         System.out.println("<--> getUser " + id);
-        return userRepository.findById(id);
+        return ResponseEntity.ok(userRepository.findById(id));
     }
 }
