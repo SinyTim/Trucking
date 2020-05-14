@@ -8,6 +8,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
+import {cargoesService} from "./cargoes.service";
 
 export class CargoPage extends React.Component {
     constructor(props) {
@@ -50,6 +51,7 @@ export class CargoPage extends React.Component {
 
         const createdCargoes = this.createCargoes([cargo1, {key: 'cargo1'}, {key: 'cargo2'}, {key: 'cargo3'}, {key: 'cargo4'}, {key: 'cargo5'}, {key: 'cargo6'}, {key: 'cargo7'}, {key: 'cargo8'}]);
 
+        const kek = cargoesService.getOwnerCargoesById('25');
         // function click() {
         //     console.log('a')
         // }
