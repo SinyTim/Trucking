@@ -1,6 +1,5 @@
 import React from 'react';
 import {authenticationService} from "../_services/authentication.service";
-import {userService} from "../_services/user.service";
 import Cargo from "./Cargo";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
@@ -23,7 +22,7 @@ export class CargoPage extends React.Component {
 
     componentDidMount() {
         const {currentUser} = this.state;
-        userService.getById(currentUser.id).then(userFromApi => this.setState({userFromApi}));
+        // userService.getById(currentUser.id).then(userFromApi => this.setState({userFromApi}));
     }
 
 
@@ -51,7 +50,7 @@ export class CargoPage extends React.Component {
 
         const createdCargoes = this.createCargoes([cargo1, {key: 'cargo1'}, {key: 'cargo2'}, {key: 'cargo3'}, {key: 'cargo4'}, {key: 'cargo5'}, {key: 'cargo6'}, {key: 'cargo7'}, {key: 'cargo8'}]);
 
-        const kek = cargoesService.getOwnerCargoesById('25');
+        const kek = cargoesService.getOwnerCargoesById( '5ebd1af74474c231009fe2be');
         // function click() {
         //     console.log('a')
         // }
