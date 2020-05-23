@@ -19,6 +19,7 @@ public class CargoController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getCargoes(@PathVariable String id) {
+        System.out.println("<--> getCargoes " + id);
         return ResponseEntity.ok(cargoService.getAllCargoes(id));
     }
 
@@ -26,6 +27,7 @@ public class CargoController {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+        System.out.println("<--> addCargo " + id);
         cargo.setOwnerId(id);
         cargoService.addCargo(cargo);
         return ResponseEntity.ok("Successfully added");
