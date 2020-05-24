@@ -41,10 +41,10 @@ public class TruckingApplication implements CommandLineRunner {
 		authService.authorization(user);
 		authService.authorization(admin);
 
-		cargoRepository.save(new CargoBack("owner1", "Alice",
+		cargoRepository.save(new CargoBack(user.getId(), "Alice",
 				40, 60, 160, 60,
 				"Minsk", "London", 666));
-		cargoRepository.save(new CargoBack("owner1", "Bob",
+		cargoRepository.save(new CargoBack(admin.getId(), "Bob",
 				80, 90, 200, 90,
 				"Moscow", "London", 333));
 
