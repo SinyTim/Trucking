@@ -1,6 +1,5 @@
 import React from 'react';
 import {authenticationService} from "../_services/authentication.service";
-import {userService} from "../_services/user.service";
 
 export class HomePage extends React.Component {
     constructor(props) {
@@ -14,7 +13,7 @@ export class HomePage extends React.Component {
 
     componentDidMount() {
         const { currentUser } = this.state;
-        userService.getById(currentUser.id).then(userFromApi => this.setState({ userFromApi }));
+        // userService.getById(currentUser.id).then(userFromApi => this.setState({ userFromApi }));
     }
 
     render() {
