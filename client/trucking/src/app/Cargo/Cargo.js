@@ -6,7 +6,7 @@ let Cargo = function statelessFunctionComponentClass(props) {
 
     const cardStyle = {
         width: '340px',
-        height: '400px',
+        height: '270px',
         margin: '30px 30px 30px 30px',
         background: '#CCE3DE',
         borderRadius: '5px',
@@ -35,18 +35,16 @@ let Cargo = function statelessFunctionComponentClass(props) {
         <div style={cardStyle}>
             <div style={cardHeaderStyle}>
                 <h1 style={{margin: '0 0 0 40px', padding: '10px 0 0 0'}}>{cargo.name}</h1>
-                <h2 style={{margin: '10px 0 0 40px'}}> {cargo.from} {'-'} {cargo.to}</h2>
+                <h2 style={{margin: '10px 0 0 40px'}}> {cargo.source_location} {'-'} {cargo.destination}</h2>
             </div>
             <div style={cardDataSectionStyle}>
-                <div style={cardDataStyle}>{'Curent location:'} {cargo.location}</div>
-                <div style={cardDataStyle}>{'Carrier:'} {cargo.carrier}</div>
-                <div style={cardDataStyle}> {'Transportation cost:'}{cargo.cost}</div>
+                {/*<div style={cardDataStyle}>{'Curent location: '} {cargo.location}</div>*/}
+                {/*<div style={cardDataStyle}>{'Carrier: '} {cargo.carrier}</div>*/}
+                <div style={cardDataStyle}> {'Transportation cost: '}{cargo.transportation_cost}</div>
             </div>
             <div style={cardDataSectionStyle}>
-                <div style={cardDataStyle}>{'Parameters:'} {cargo.parameters}</div>
-            </div>
-            <div style={{marginLeft: '10%', width: '80%'}}>
-                <div style={cardDataStyle}>{'Status:'} {cargo.status}</div>
+                <div style={cardDataStyle}>{'Parameters: '} {cargo.width} {'x'} {cargo.height} {'x'} {cargo.length} </div>
+                <div style={cardDataStyle}>{'Weight: '} {cargo.weight} </div>
             </div>
         </div>
     );

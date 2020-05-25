@@ -35,7 +35,7 @@ class App extends React.Component {
         const {currentUser, isAdmin} = this.state;
         return (
             <BrowserRouter>
-                <div style={{height: '100%'}}>
+                <div style={{height: '100%', background: '#eaf4f4'}}>
                     <div className="navigation" style={{display: 'flex', flexDirection: 'row-reverse'}}>
                         {currentUser &&
                             <div style={{display: 'flex', flexDirection: 'row'}}>

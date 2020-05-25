@@ -10,9 +10,9 @@ function getOwnerCargoesById(ownerId) {
         headers: {'Content-Type': 'application/json'},
     };
 
-    return fetch(`http://localhost:8080/users/${ownerId}/cargo`, requestOptions)
-        .then(cargoes => {
-            return cargoes;
+    return fetch(`/users/${ownerId}/cargo`, requestOptions)
+        .then(response => {
+            return response.json();
         });
 }
 
@@ -23,7 +23,7 @@ function addCargo(cargo, ownerId) {
         body: {'cargo' : cargo, 'id': ownerId}
     };
 
-    return fetch(`http://localhost:8080/users/${ownerId}/cargo`, requestOptions)
+    return fetch(`/users/${ownerId}/cargo`, requestOptions)
         .then(res => {
             console.log(res);
         });
