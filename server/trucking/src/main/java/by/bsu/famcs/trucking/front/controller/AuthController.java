@@ -25,7 +25,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping(path = "/users/authenticate",
+    @PostMapping(path = "/api/users/authenticate",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> authenticate(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -37,7 +37,7 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping(path = "/users/authorization",
+    @PostMapping(path = "/api/users/authorization",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> authorization(@RequestBody UserBack authUser) throws Exception {

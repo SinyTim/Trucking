@@ -17,7 +17,7 @@ public class CargoController {
     @Autowired
     private CargoService cargoService;
 
-    @GetMapping(path = "/users/{id}/cargo",
+    @GetMapping(path = "/api/users/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getCargoes(@PathVariable String id) {
@@ -25,7 +25,7 @@ public class CargoController {
         return ResponseEntity.ok(cargoService.getAllCargoes(id));
     }
 
-    @PostMapping(path = "/users/{id}/cargo",
+    @PostMapping(path = "/api/users/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
