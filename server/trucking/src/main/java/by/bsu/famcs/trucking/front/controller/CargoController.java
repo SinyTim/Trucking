@@ -34,4 +34,16 @@ public class CargoController {
         cargoService.addCargo(cargo);
         return ResponseEntity.ok("Successfully added");
     }
+
+    @DeleteMapping(path = "/api/users/{id}/cargo",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> deleteCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+        System.out.println("<--> deleteCargo " + id);
+        if (cargoService.deleteCargo(cargo)) {
+            return ResponseEntity.ok("Successfully deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

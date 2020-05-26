@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class CargoService {
@@ -18,4 +19,13 @@ public class CargoService {
     }
 
     public void addCargo(CargoBack cargo) { cargoRepository.save(cargo); }
+
+    public boolean deleteCargo(CargoBack cargo) {
+        AtomicBoolean present = new AtomicBoolean(false);
+        cargoRepository.findById(cargo.getId()).ifPresent(
+                findCargo -> { present.set(true);
+                cargoRepository.delete(findCargo);
+                });
+        return present.get();
+    }
 }
