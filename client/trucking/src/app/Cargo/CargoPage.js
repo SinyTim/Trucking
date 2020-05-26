@@ -39,28 +39,25 @@ export class CargoPage extends React.Component {
     render() {
 
         const cargo1 = {
+            id: '228',
+            ownerId: this.state.currentUser.id,
+
             name: 'Cargo 1',
-            from: 'Minsk',
-            to: 'Paris',
-            key: 'keyy',
-            location: 'Moscow',
-            carrier: 'Ivan',
-            cost: '700$',
-            parameters: '100*100*100',
-            status: 'not paid, not delivered'
+
+            weight: '1',
+            width: '2',
+            height: '3',
+            length: '4',
+
+            source_location: 'Minsk',
+            destination: 'Paris',
+
+            transportation_cost: '700',
         };
 
-
-        const createdCargoes = this.createCargoes([cargo1]);
-
-        // let cargoes;
-        // cargoes = Promise.resolve(cargoesService.getOwnerCargoesById(this.state.currentUser.id)).then(console.log);
-        // // cargoes.forEach(cargo => cargo.key = cargo.id);
-        // console.log(this.state.cargoes);
-
-        // function click() {
-        //     console.log('a')
-        // }
+        // const createdCargoes = this.createCargoes([cargo1]);
+        // cargoesService.addCargo(cargo1, this.state.currentUser.id);
+        // cargoesService.getOwnerCargoesById(this.state.currentUser.id).then(console.log);
 
         const handleClickOpen = () => {
             this.setState({isDialogOpen: true})
@@ -70,16 +67,14 @@ export class CargoPage extends React.Component {
             this.setState({isDialogOpen: false})
         };
 
-        const cargoes = this.state.cargoes.map(cargo => this.createCargo(cargo));
-        console.log(this.state.cargoes);
-
-        // const {currentUser, userFromApi} = this.state;
+        const cargoes = this.state.cargoes;
         return (
             <div>
                 <h1 style={{textAlign: 'center'}}> My Cargoes</h1>
                 <div>
                     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-                      {this.state.cargoes.length ? cargoes : <span> Loading...</span>}
+                        {this.state.cargoes.length ? this.state.cargoes.map(cargo => this.createCargo(cargo))
+                            : <span> Loading...</span>}
                     </div>
                     <div style={{position: 'sticky', bottom: '100px'}}>
 
@@ -112,7 +107,23 @@ export class CargoPage extends React.Component {
                                 <DialogTitle id="form-dialog-title">New cargo</DialogTitle>
                                 <form action="/" method="POST" onSubmit={(e) => {
                                     e.preventDefault();
-                                    console.log(e);
+                                    const newCargo = {
+                                        id: (new Date()).getTime(),
+                                        ownerId: this.state.currentUser.id,
+                                        name: document.getElementById('name').value,
+
+                                        weight: document.getElementById('weight').value,
+                                        width: document.getElementById('width').value,
+                                        height: document.getElementById('height').value,
+                                        length: document.getElementById('length').value,
+
+                                        source_location: document.getElementById('source_location').value,
+                                        destination: document.getElementById('destination').value,
+
+                                        transportation_cost: document.getElementById('transportation_cost').value,
+                                    };
+                                    cargoesService.addCargo(newCargo, newCargo.ownerId);
+                                    this.setState({cargoes: [...cargoes, newCargo]});
                                     handleClose();
                                 }}>
                                     <TextField
@@ -125,13 +136,13 @@ export class CargoPage extends React.Component {
                                         fullWidth/>
                                     <TextField
                                         margin="dense"
-                                        id="destination"
+                                        id="source_location"
                                         label="Origin City"
                                         required
                                         fullWidth/>
                                     <TextField
                                         margin="dense"
-                                        id="to"
+                                        id="destination"
                                         label="Destination City"
                                         required
                                         fullWidth/>
@@ -160,6 +171,13 @@ export class CargoPage extends React.Component {
                                         margin="dense"
                                         id="weight"
                                         label="Weight"
+                                        type="number"
+                                        required
+                                        fullWidth/>
+                                    <TextField
+                                        margin="dense"
+                                        id="transportation_cost"
+                                        label="Cost"
                                         type="number"
                                         required
                                         fullWidth/>

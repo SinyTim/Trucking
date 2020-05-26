@@ -20,7 +20,7 @@ function addCargo(cargo, ownerId) {
     const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: {'cargo' : cargo, 'id': ownerId}
+        body: JSON.stringify(cargo)
     };
 
     return fetch(`/users/${ownerId}/cargo`, requestOptions)
