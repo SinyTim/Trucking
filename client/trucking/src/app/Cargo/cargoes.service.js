@@ -2,6 +2,7 @@
 export const cargoesService = {
     getOwnerCargoesById,
     addCargo,
+    deleteCargo,
 };
 
 function getOwnerCargoesById(ownerId) {
@@ -19,6 +20,19 @@ function getOwnerCargoesById(ownerId) {
 function addCargo(cargo, ownerId) {
     const requestOptions = {
         method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(cargo)
+    };
+
+    return fetch(`api/users/${ownerId}/cargo`, requestOptions)
+        .then(res => {
+            // console.log(res);
+        });
+}
+
+function deleteCargo(cargo, ownerId) {
+    const requestOptions = {
+        method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(cargo)
     };
