@@ -14,8 +14,12 @@ public class CargoService {
     @Autowired
     private CargoRepository cargoRepository;
 
-    public List<CargoBack> getAllCargoes(String userId) {
+    public List<CargoBack> getAllCargoesByOwnerId(String userId) {
         return cargoRepository.findByOwnerId(userId);
+    }
+
+    public List<CargoBack> getAllCargoes() {
+        return cargoRepository.findAll();
     }
 
     public CargoBack addCargo(CargoBack cargo) { return cargoRepository.save(cargo); }

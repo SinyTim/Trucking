@@ -7,22 +7,28 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-
-@CrossOrigin(origins={"http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RestController
 public class CargoController {
 
     @Autowired
     private CargoService cargoService;
 
+    @GetMapping(path = "/api/users/cargo",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> getAllCargoes() {
+        System.out.println("<--> getAllCargoes");
+        return ResponseEntity.ok(cargoService.getAllCargoes());
+    }
+
     @GetMapping(path = "/api/users/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getCargoes(@PathVariable String id) {
         System.out.println("<--> getCargoes " + id);
-        return ResponseEntity.ok(cargoService.getAllCargoes(id));
+        return ResponseEntity.ok(cargoService.getAllCargoesByOwnerId(id));
     }
 
     @PostMapping(path = "/api/users/{id}/cargo",
