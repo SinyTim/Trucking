@@ -31,8 +31,8 @@ public class CargoController {
     public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
         System.out.println("<--> addCargo " + id);
         cargo.setOwnerId(id);
-        cargoService.addCargo(cargo);
-        return ResponseEntity.ok("Successfully added");
+        cargo = cargoService.addCargo(cargo);
+        return ResponseEntity.ok(cargo);
     }
 
     @DeleteMapping(path = "/api/users/{id}/cargo",

@@ -18,7 +18,7 @@ public class CargoService {
         return cargoRepository.findByOwnerId(userId);
     }
 
-    public void addCargo(CargoBack cargo) { cargoRepository.save(cargo); }
+    public CargoBack addCargo(CargoBack cargo) { return cargoRepository.save(cargo); }
 
     public boolean deleteCargo(CargoBack cargo) {
         AtomicBoolean present = new AtomicBoolean(false);
