@@ -46,4 +46,18 @@ public class CargoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping(path = "/api/users/{id}/cargo",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> updateCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+        System.out.println("<--> updateCargo " + id);
+        cargo.setOwnerId(id);
+        if (cargoService.deleteCargo(cargo)) {
+            cargo = cargoService.addCargo(cargo);
+            return ResponseEntity.ok(cargo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
