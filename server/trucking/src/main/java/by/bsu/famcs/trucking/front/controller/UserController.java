@@ -26,7 +26,7 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @GetMapping(path = "/api/users/{id}",
+    @GetMapping(path = "/api/{id}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getUser(@PathVariable String id) {

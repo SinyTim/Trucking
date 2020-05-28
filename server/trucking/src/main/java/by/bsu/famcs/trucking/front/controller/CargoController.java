@@ -15,7 +15,7 @@ public class CargoController {
     @Autowired
     private CargoService cargoService;
 
-    @GetMapping(path = "/api/users/cargo",
+    @GetMapping(path = "/api/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getAllCargoes() {
@@ -23,7 +23,7 @@ public class CargoController {
         return ResponseEntity.ok(cargoService.getAllCargoes());
     }
 
-    @GetMapping(path = "/api/users/{id}/cargo",
+    @GetMapping(path = "/api/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getCargoes(@PathVariable String id) {
@@ -31,7 +31,7 @@ public class CargoController {
         return ResponseEntity.ok(cargoService.getAllCargoesByOwnerId(id));
     }
 
-    @PostMapping(path = "/api/users/{id}/cargo",
+    @PostMapping(path = "/api/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
@@ -41,7 +41,7 @@ public class CargoController {
         return ResponseEntity.ok(cargo);
     }
 
-    @DeleteMapping(path = "/api/users/{id}/cargo",
+    @DeleteMapping(path = "/api/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> deleteCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
@@ -53,7 +53,7 @@ public class CargoController {
         }
     }
 
-    @PutMapping(path = "/api/users/{id}/cargo",
+    @PutMapping(path = "/api/{id}/cargo",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> updateCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
