@@ -46,7 +46,7 @@ class App extends React.Component {
                                     <Link to="/cargoes" className="nav-item">Cargoes</Link>
                                 </div>
                                 {isAdmin && <div className="nav-item-div">
-                                    {isAdmin && <Link to="/admin" className="nav-item">Admin</Link>}
+                                    {isAdmin && <Link to="/admin" className="nav-item">Users</Link>}
                                 </div>}
                                 <div className="nav-item-div">
                                     <a onClick={this.logout} className="nav-item" href={'/'}>Logout</a>
