@@ -15,10 +15,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 @SpringBootApplication
 public class TruckingApplication implements CommandLineRunner {
+
+	private static final Logger LOGGER = Logger.getLogger(TruckingApplication.class.getName());
+
 	@Autowired
 	private AuthService authService;
 
@@ -66,15 +70,15 @@ public class TruckingApplication implements CommandLineRunner {
 		transportationRepository.save(new TransportationBack(carrier.getId(), route, "Moscow", cargoes));
 
 		for (CargoBack cargoBack : cargoRepository.findAll()) {
-			System.out.println(cargoBack);
+			LOGGER.info(cargoBack.toString());
 		}
 
 		for (UserBack userBack : userRepository.findAll()) {
-			System.out.println(userBack);
+			LOGGER.info(userBack.toString());
 		}
 
 		for (TransportationBack transportationBack : transportationRepository.findAll()) {
-			System.out.println(transportationBack);
+			LOGGER.info(transportationBack.toString());
 		}
 	}
 }
