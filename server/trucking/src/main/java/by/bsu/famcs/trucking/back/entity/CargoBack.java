@@ -19,9 +19,20 @@ public class CargoBack {
 
     double transportation_cost;
 
+    String status;
+
     public CargoBack() {}
 
-    public CargoBack(String ownerId, String name, double weight, double width, double height, double length, String source_location, String destination, double transportation_cost) {
+    public CargoBack(String ownerId,
+                     String name,
+                     double weight,
+                     double width,
+                     double height,
+                     double length,
+                     String source_location,
+                     String destination,
+                     double transportation_cost,
+                     String status) {
         this.ownerId = ownerId;
         this.name = name;
         this.weight = weight;
@@ -31,6 +42,7 @@ public class CargoBack {
         this.source_location = source_location;
         this.destination = destination;
         this.transportation_cost = transportation_cost;
+        this.status = status;
     }
 
     public String getId() {
@@ -77,6 +89,14 @@ public class CargoBack {
         return height;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setHeight(double height) {
         this.height = height;
     }
@@ -115,7 +135,7 @@ public class CargoBack {
 
     @Override
     public String toString() {
-        return "Cargo{" +
+        return "CargoBack{" +
                 "id='" + id + '\'' +
                 ", ownerId='" + ownerId + '\'' +
                 ", name='" + name + '\'' +
@@ -126,6 +146,7 @@ public class CargoBack {
                 ", source_location='" + source_location + '\'' +
                 ", destination='" + destination + '\'' +
                 ", transportation_cost=" + transportation_cost +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
