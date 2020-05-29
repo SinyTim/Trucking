@@ -5,7 +5,9 @@ import by.bsu.famcs.trucking.service.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 
 
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -46,9 +48,13 @@ public class CargoController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> deleteCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
         System.out.println("<--> deleteCargo " + id);
-        if (cargoService.deleteCargo(cargo)) {
+        cargo.setOwnerId(id);
+        try {
+            cargoService.deleteCargo(cargo);
             return ResponseEntity.ok("Successfully deleted");
-        } else {
+        } catch (ResourceAccessException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -59,10 +65,13 @@ public class CargoController {
     public ResponseEntity<?> updateCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
         System.out.println("<--> updateCargo " + id);
         cargo.setOwnerId(id);
-        if (cargoService.deleteCargo(cargo)) {
+        try {
+            cargoService.deleteCargo(cargo);
             cargo = cargoService.addCargo(cargo);
             return ResponseEntity.ok(cargo);
-        } else {
+        } catch (ResourceAccessException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

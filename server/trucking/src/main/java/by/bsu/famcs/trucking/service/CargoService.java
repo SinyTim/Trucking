@@ -3,7 +3,9 @@ package by.bsu.famcs.trucking.service;
 import by.bsu.famcs.trucking.back.entity.CargoBack;
 import by.bsu.famcs.trucking.back.repository.CargoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,12 +26,19 @@ public class CargoService {
 
     public CargoBack addCargo(CargoBack cargo) { return cargoRepository.save(cargo); }
 
-    public boolean deleteCargo(CargoBack cargo) {
+    public void deleteCargo(CargoBack cargo) throws NotFoundException, ResourceAccessException {
         AtomicBoolean present = new AtomicBoolean(false);
         cargoRepository.findById(cargo.getId()).ifPresent(
-                findCargo -> { present.set(true);
-                cargoRepository.delete(findCargo);
+                findCargo -> {
+                    present.set(true);
+                    if (findCargo.getOwnerId().equals(cargo.getOwnerId())) {
+                        cargoRepository.delete(findCargo);
+                    } else {
+                        throw new ResourceAccessException("You aren't the owner of this resource");
+                    }
                 });
-        return present.get();
+        if (!present.get()) {
+            throw new NotFoundException("No cargo with such id");
+        }
     }
 }
