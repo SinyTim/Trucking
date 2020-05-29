@@ -58,4 +58,9 @@ public class CargoService {
             throw new UserNotFoundException("No cargo with such id");
         }
     }
+
+    public CargoBack updateCargo(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+        deleteCargo(cargo, id);
+        return addCargo(cargo, id);
+    }
 }
