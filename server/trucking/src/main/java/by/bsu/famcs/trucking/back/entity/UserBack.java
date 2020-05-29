@@ -1,9 +1,8 @@
 package by.bsu.famcs.trucking.back.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+
 public class UserBack {
     @Id
     public String id;
@@ -12,15 +11,25 @@ public class UserBack {
     String username;
     String password;
     String role;
+    boolean banned;
 
     public UserBack() { }
 
-    public UserBack(String firstName, String lastName, String username, String password, String role) {
+    public UserBack(String firstName, String lastName, String username, String password, String role, boolean banned) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.banned = banned;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 
     public String getId() {

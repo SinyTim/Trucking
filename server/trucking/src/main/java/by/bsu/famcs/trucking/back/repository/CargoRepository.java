@@ -11,6 +11,6 @@ public interface CargoRepository extends MongoRepository<CargoBack, String> {
 
     public boolean existsByName(String name);
 
-    public List<CargoBack> findByOwnerId(String ownerId);
+    public List<CargoBack> findAllByOwnerId(String ownerId);
 
 }

@@ -8,11 +8,20 @@ public class TransportationBack {
     @Id
     public String id;
 
-    String carrier_id;
+    String carrierId;
 
     List<String> route;
-    String current_location;
+    String currentLocation;
     List<String> cargoes;
+
+    public TransportationBack() { }
+
+    public TransportationBack(String carrierId, List<String> route, String currentLocation, List<String> cargoes) {
+        this.carrierId = carrierId;
+        this.route = route;
+        this.currentLocation = currentLocation;
+        this.cargoes = cargoes;
+    }
 
     public String getId() {
         return id;
@@ -22,12 +31,12 @@ public class TransportationBack {
         this.id = id;
     }
 
-    public String getCarrier_id() {
-        return carrier_id;
+    public String getCarrierId() {
+        return carrierId;
     }
 
-    public void setCarrier_id(String carrier_id) {
-        this.carrier_id = carrier_id;
+    public void setCarrierId(String carrierId) {
+        this.carrierId = carrierId;
     }
 
     public List<String> getRoute() {
@@ -38,12 +47,12 @@ public class TransportationBack {
         this.route = route;
     }
 
-    public String getCurrent_location() {
-        return current_location;
+    public String getCurrentLocation() {
+        return currentLocation;
     }
 
-    public void setCurrent_location(String current_location) {
-        this.current_location = current_location;
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
     }
 
     public List<String> getCargoes() {
@@ -58,9 +67,9 @@ public class TransportationBack {
     public String toString() {
         return "TransportationBack{" +
                 "id='" + id + '\'' +
-                ", carrier_id='" + carrier_id + '\'' +
+                ", carrierId='" + carrierId + '\'' +
                 ", route=" + route +
-                ", current_location='" + current_location + '\'' +
+                ", currentLocation='" + currentLocation + '\'' +
                 ", cargoes=" + cargoes +
                 '}';
     }

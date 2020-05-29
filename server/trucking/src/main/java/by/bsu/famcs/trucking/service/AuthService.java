@@ -29,7 +29,7 @@ public class AuthService {
             throw new FailedLoginException("User is not authorized");
         }
         UserBack userInDB = userRepository.findByUsername(username);
-        if (!bCryptPasswordEncoder.matches(password, userInDB.getPassword())){
+        if (!bCryptPasswordEncoder.matches(password, userInDB.getPassword())) {
             throw new FailedLoginException("Incorrect pass");
         }
         UserAuthResponseFront ret = new UserAuthResponseFront();
@@ -41,8 +41,8 @@ public class AuthService {
         return ret;
     }
 
-    public void authorization(UserBack user) {
+    public UserBack authorization(UserBack user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

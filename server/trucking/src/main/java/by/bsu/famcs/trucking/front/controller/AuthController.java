@@ -42,7 +42,7 @@ public class AuthController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> authorization(@RequestBody UserBack authUser) throws Exception {
         System.out.println("--> authorization " + authUser);
-        authService.authorization(authUser);
+        authUser = authService.authorization(authUser);
 
         UserAuthResponseFront user = authenticate(authUser.getUsername(), authUser.getPassword());
         final String token = jwtTokenUtil.generateToken(authUser.getUsername());
