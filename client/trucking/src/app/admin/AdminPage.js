@@ -21,7 +21,7 @@ export default class AdminPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getAll().then(users => {
+        userService.getAll(this.state.currentUser.id).then(users => {
             this.setState({ users: users });
         });
     }
