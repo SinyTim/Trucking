@@ -61,7 +61,7 @@ public class UserService {
         if (!user.getRole().equals(UserService.ADMIN)) {
             throw new ResourceAccessDeniedException("Sorry, only admin can ban users");
         }
-        UserBack userFind = findById(userBack.getId());
+        UserBack userFind = unsafeFindById(userBack.getId());
         userFind.setBanned(userBack.isBanned());
         return userRepository.save(userFind);
     }
