@@ -27,7 +27,7 @@ public class UserController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getUser(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> userService.unsafeFindById(id));
+        return ResponseCreator.body(() -> userService.findById(id));
     }
 
     @GetMapping(path = PATH,
