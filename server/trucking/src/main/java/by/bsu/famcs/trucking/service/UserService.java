@@ -19,6 +19,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AuthService authService;
+
     public UserBack findById(String userId) throws UserNotFoundException, ResourceAccessDeniedException {
         AtomicReference<UserBack> userBack = new AtomicReference<>(null);
         userRepository.findById(userId).ifPresent(userBack::set);
@@ -53,7 +56,7 @@ public class UserService {
         if (!user.getRole().equals(UserService.ADMIN)) {
             throw new ResourceAccessDeniedException("Sorry, only admin can add new users");
         }
-        return userRepository.save(userBack);
+        return authService.authorization(userBack);
     }
 
     public UserBack changeUserStatus(UserBack userBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
