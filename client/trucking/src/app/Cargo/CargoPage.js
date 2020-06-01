@@ -26,7 +26,8 @@ export class CargoPage extends React.Component {
     }
 
     createCargo(cargo) {
-        return <Cargo cargo={cargo} key={cargo.id} ownerId={this.state.currentUser.id}/>;
+        return <Cargo cargo={cargo} key={cargo.id} ownerId={this.state.currentUser.id}
+                      ownerRole={this.state.currentUser.role}/>;
     }
 
     createCargoes(cargoes) {
@@ -140,6 +141,7 @@ export class CargoPage extends React.Component {
                         {this.state.cargoes.length ? this.state.cargoes.map(cargo => this.createCargo(cargo))
                             : <span> Loading...</span>}
                     </div>
+                    {this.state.currentUser.role !== 'Admin' &&
                     <div style={{position: 'sticky', bottom: '100px'}}>
 
                         <div style={{
@@ -168,6 +170,7 @@ export class CargoPage extends React.Component {
                             {addDialog}
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         );

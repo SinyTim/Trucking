@@ -11,6 +11,7 @@ export default class Cargo extends React.Component {
             editMode: false,
             cargo: props.cargo,
             ownerId: props.ownerId,
+            ownerRole: props.ownerRole,
         };
     }
 
@@ -162,6 +163,8 @@ export default class Cargo extends React.Component {
                                 display: 'none'
                             }}
                             onClick={this.saveChangesInCurrentCargo.bind(this)}> OK </Button>
+
+                    { this.state.ownerRole === 'Carrier' && <input type="checkbox"/> }
 
                     <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
                         <h1 id={this.state.cargo.id + 'name'} style={{
