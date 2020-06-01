@@ -32,6 +32,9 @@ public class AuthService {
         if (!bCryptPasswordEncoder.matches(password, userInDB.getPassword())) {
             throw new FailedLoginException("Incorrect pass");
         }
+        if (userInDB.isBanned()) {
+            throw new FailedLoginException("Sorry, you have been banned by admin");
+        }
         UserAuthResponseFront ret = new UserAuthResponseFront();
         ret.setUsername(userInDB.getUsername());
         ret.setFirstName(userInDB.getFirstName());
