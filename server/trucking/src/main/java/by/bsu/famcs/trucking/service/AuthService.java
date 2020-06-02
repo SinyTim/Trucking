@@ -19,6 +19,9 @@ public class AuthService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -41,6 +44,7 @@ public class AuthService {
         ret.setId(userInDB.getId());
         ret.setLastName(userInDB.getLastName());
         ret.setRole(userInDB.getRole());
+        ret.setToken(jwtTokenUtil.generateToken(userInDB.getUsername()));
         return ret;
     }
 
