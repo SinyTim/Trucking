@@ -43,12 +43,10 @@ export default class Cargo extends React.Component {
         padding: '10px 10px  0 0',
         fontSize: '20px',
         display: 'flex',
-
     };
 
     deleteCurrentCargo() {
         cargoesService.deleteCargo(this.state.cargo, this.state.cargo.ownerId);
-
     }
 
     changeCurrentCargo() {
@@ -129,6 +127,7 @@ export default class Cargo extends React.Component {
         return (
             <div style={this.cardStyle}>
                 <div style={this.cardHeaderStyle}>
+                    {this.state.ownerRole === 'Owner' &&
                     <Button style={{
                         width: '60px',
                         position: 'inherit',
@@ -138,8 +137,8 @@ export default class Cargo extends React.Component {
                         color: 'white',
                         fontSize: '10px'
                     }}
-                            onClick={this.deleteCurrentCargo.bind(this)}> delete </Button>
-
+                            onClick={this.deleteCurrentCargo.bind(this)}> delete </Button>}
+                    {this.state.ownerRole === 'Owner' &&
                     <Button style={{
                         width: '60px',
                         position: 'inherit',
@@ -149,8 +148,8 @@ export default class Cargo extends React.Component {
                         color: 'white',
                         fontSize: '10px'
                     }}
-                            onClick={this.changeCurrentCargo.bind(this)}> change </Button>
-
+                            onClick={this.changeCurrentCargo.bind(this)}> change </Button>}
+                    {this.state.ownerRole === 'Owner' &&
                     <Button id={this.state.cargo.id + 'ok'}
                             style={{
                                 width: '60px',
@@ -163,8 +162,13 @@ export default class Cargo extends React.Component {
                                 display: 'none'
                             }}
                             onClick={this.saveChangesInCurrentCargo.bind(this)}> OK </Button>
+                    }
 
-                    { this.state.ownerRole === 'Carrier' && <input type="checkbox"/> }
+
+                    {this.state.ownerRole === 'Carrier' && <input type="checkbox"/>}
+
+                    {this.state.ownerRole !== 'Owner' && <div style={{height: '20px'}}>  </div>}
+
 
                     <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
                         <h1 id={this.state.cargo.id + 'name'} style={{
@@ -177,6 +181,7 @@ export default class Cargo extends React.Component {
                                type="text"
                                onChange={this.changeName.bind(this)}/>
                     </div>
+
 
                     <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}>
                         <h2 id={this.state.cargo.id + 'source'}
@@ -255,7 +260,8 @@ export default class Cargo extends React.Component {
                 <div style={this.cardDataSectionStyle}>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
                         <div style={this.cardDataStyle}> {'Status: '} </div>
-                        <div style={Object.assign({}, this.cardDataStyle, {marginLeft: '10px'})}> {this.state.cargo.status} </div>
+                        <div
+                            style={Object.assign({}, this.cardDataStyle, {marginLeft: '10px'})}> {this.state.cargo.status} </div>
                     </div>
                 </div>
 
