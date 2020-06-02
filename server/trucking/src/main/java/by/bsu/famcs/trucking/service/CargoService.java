@@ -21,7 +21,7 @@ public class CargoService {
     @Autowired
     private UserService userService;
 
-    public List<CargoBack> getAvailableCargoes(String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public List<CargoBack> get(String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
         if (user.getRole().equals(UserService.OWNER)) {
             return cargoRepository.findAllByOwnerId(id);
@@ -30,7 +30,7 @@ public class CargoService {
         }
     }
 
-    public CargoBack addCargo(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public CargoBack post(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
         if (!user.getRole().equals(UserService.OWNER)) {
             throw new ResourceAccessDeniedException("Your role is not a OWNER, so you cannot create cargoes");
@@ -39,7 +39,7 @@ public class CargoService {
         return cargoRepository.save(cargo);
     }
 
-    public void deleteCargo(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public void delete(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         AtomicBoolean present = new AtomicBoolean(false);
         try {
             cargoRepository.findById(cargo.getId()).ifPresent(
@@ -59,8 +59,8 @@ public class CargoService {
         }
     }
 
-    public CargoBack updateCargo(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
-        deleteCargo(cargo, id);
-        return addCargo(cargo, id);
+    public CargoBack put(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+        delete(cargo, id);
+        return post(cargo, id);
     }
 }

@@ -24,26 +24,26 @@ public class CargoController {
     @GetMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getCargoes(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> cargoService.getAvailableCargoes(id));
+        return ResponseCreator.body(() -> cargoService.get(id));
     }
 
     @PostMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> addCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+    public ResponseEntity<?> post(@RequestBody CargoBack cargo, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> cargoService.addCargo(cargo, id));
+        return ResponseCreator.body(() -> cargoService.post(cargo, id));
     }
 
     @DeleteMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> deleteCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+    public ResponseEntity<?> delete(@RequestBody CargoBack cargo, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> {
-            cargoService.deleteCargo(cargo, id);
+            cargoService.delete(cargo, id);
             return "Successfully deleted";
         });
     }
@@ -51,8 +51,8 @@ public class CargoController {
     @PutMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> updateCargo(@RequestBody CargoBack cargo, @PathVariable String id) {
+    public ResponseEntity<?> put(@RequestBody CargoBack cargo, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> cargoService.updateCargo(cargo, id));
+        return ResponseCreator.body(() -> cargoService.put(cargo, id));
     }
 }

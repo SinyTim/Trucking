@@ -43,7 +43,7 @@ public class UserService {
         return userBack.get();
     }
 
-    public List<UserBack> findAllForAdminId(String adminId) throws UserNotFoundException, ResourceAccessDeniedException {
+    public List<UserBack> get(String adminId) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack admin = findById(adminId);
         if (!admin.getRole().equals(ADMIN)) {
             throw new ResourceAccessDeniedException("Sorry, only admin can view this page");
@@ -51,7 +51,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserBack addUser(UserBack userBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public UserBack post(UserBack userBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = findById(id);
         if (!user.getRole().equals(UserService.ADMIN)) {
             throw new ResourceAccessDeniedException("Sorry, only admin can add new users");
@@ -59,7 +59,7 @@ public class UserService {
         return authService.authorization(userBack);
     }
 
-    public UserBack changeUserStatus(UserBack userBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public UserBack patchStatus(UserBack userBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = findById(id);
         if (!user.getRole().equals(UserService.ADMIN)) {
             throw new ResourceAccessDeniedException("Sorry, only admin can ban users");

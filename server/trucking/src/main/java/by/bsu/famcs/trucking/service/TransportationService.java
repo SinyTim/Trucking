@@ -7,8 +7,10 @@ import by.bsu.famcs.trucking.exceptions.ResourceAccessDeniedException;
 import by.bsu.famcs.trucking.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class TransportationService {
@@ -19,7 +21,7 @@ public class TransportationService {
     @Autowired
     private UserService userService;
 
-    public List<TransportationBack> getAllTransportations(String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public List<TransportationBack> get(String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
         if (user.getRole().equals(UserService.ADMIN)) {
             return transportationRepository.findAll();
@@ -31,12 +33,37 @@ public class TransportationService {
         }
     }
 
-    public TransportationBack addTransportation(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+    public TransportationBack post(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
         if (!user.getRole().equals(UserService.CARRIER)) {
             throw new ResourceAccessDeniedException("Your role is not a CARRIER, so you cannot create a transportation");
         }
         transportationBack.setCarrierId(user.getId());
         return transportationRepository.save(transportationBack);
+    }
+
+    public void delete(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+        AtomicBoolean present = new AtomicBoolean(false);
+        try {
+            transportationRepository.findById(transportationBack.getId()).ifPresent(
+                    findTransportation -> {
+                        present.set(true);
+                        if (findTransportation.getCarrierId().equals(id)) {
+                            transportationRepository.delete(findTransportation);
+                        } else {
+                            throw new ResourceAccessException("You aren't the owner of this resource");
+                        }
+                    });
+        } catch (ResourceAccessException e) {
+            throw new ResourceAccessDeniedException(e.getMessage());
+        }
+        if (!present.get()) {
+            throw new UserNotFoundException("No transportation with such id");
+        }
+    }
+
+    public TransportationBack put(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+        delete(transportationBack, id);
+        return post(transportationBack, id);
     }
 }

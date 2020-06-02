@@ -23,16 +23,35 @@ public class TransportationController {
     @GetMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getTransportations(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> transportationService.getAllTransportations(id));
+        return ResponseCreator.body(() -> transportationService.get(id));
     }
 
     @PostMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> addTransportation(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
+    public ResponseEntity<?> post(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> transportationService.addTransportation(transportationBack, id));
+        return ResponseCreator.body(() -> transportationService.post(transportationBack, id));
+    }
+
+    @DeleteMapping(path = PATH,
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> delete(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
+        LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
+        return ResponseCreator.body(() -> {
+            transportationService.delete(transportationBack, id);
+            return "Successfully deleted";
+        });
+    }
+
+    @PutMapping(path = PATH,
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> put(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
+        LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
+        return ResponseCreator.body(() -> transportationService.put(transportationBack, id));
     }
 }

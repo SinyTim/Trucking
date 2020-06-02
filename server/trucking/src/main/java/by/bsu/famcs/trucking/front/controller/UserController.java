@@ -33,24 +33,24 @@ public class UserController {
     @GetMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getUsers(@PathVariable String id) {
+    public ResponseEntity<?> get(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> userService.findAllForAdminId(id));
+        return ResponseCreator.body(() -> userService.get(id));
     }
 
     @PostMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> addUser(@RequestBody UserBack user, @PathVariable String id) {
+    public ResponseEntity<?> post(@RequestBody UserBack user, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> userService.addUser(user, id));
+        return ResponseCreator.body(() -> userService.post(user, id));
     }
 
     @PatchMapping(path = PATH,
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> changeUserStatus(@RequestBody UserBack user, @PathVariable String id) {
+    public ResponseEntity<?> patchStatus(@RequestBody UserBack user, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> userService.changeUserStatus(user, id));
+        return ResponseCreator.body(() -> userService.patchStatus(user, id));
     }
 }
