@@ -30,4 +30,13 @@ public class TransportationService {
             return transportationRepository.findAll();
         }
     }
+
+    public TransportationBack addTransportation(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
+        UserBack user = userService.findById(id);
+        if (!user.getRole().equals(UserService.CARRIER)) {
+            throw new ResourceAccessDeniedException("Your role is not a CARRIER, so you cannot create a transportation");
+        }
+        transportationBack.setCarrierId(user.getId());
+        return transportationRepository.save(transportationBack);
+    }
 }

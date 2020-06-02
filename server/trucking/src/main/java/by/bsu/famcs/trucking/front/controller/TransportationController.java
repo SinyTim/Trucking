@@ -1,5 +1,6 @@
 package by.bsu.famcs.trucking.front.controller;
 
+import by.bsu.famcs.trucking.back.entity.TransportationBack;
 import by.bsu.famcs.trucking.service.TransportationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,5 +26,13 @@ public class TransportationController {
     public ResponseEntity<?> getTransportations(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> transportationService.getAllTransportations(id));
+    }
+
+    @PostMapping(path = PATH,
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> addTransportation(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
+        LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
+        return ResponseCreator.body(() -> transportationService.addTransportation(transportationBack, id));
     }
 }
