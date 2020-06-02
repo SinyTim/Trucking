@@ -11,6 +11,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 public class TransportationService {
@@ -28,8 +29,9 @@ public class TransportationService {
         } else if (user.getRole().equals(UserService.CARRIER)) {
             return transportationRepository.findAllByCarrierId(id);
         } else {
-            // TODO
-            return transportationRepository.findAll();
+            return transportationRepository.findAll().stream().filter(
+                    transportationBack -> transportationBack.getCargoes().stream().anyMatch(id::equals)
+            ).collect(Collectors.toList());
         }
     }
 
