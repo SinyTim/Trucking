@@ -26,7 +26,8 @@ export class CargoPage extends React.Component {
     }
 
     createCargo(cargo) {
-        return <Cargo cargo={cargo} key={cargo.id}/>;
+        return <Cargo cargo={cargo} key={cargo.id} ownerId={this.state.currentUser.id}
+                      ownerRole={this.state.currentUser.role}/>;
     }
 
     createCargoes(cargoes) {
@@ -35,23 +36,6 @@ export class CargoPage extends React.Component {
 
     render() {
         const cargoes = this.state.cargoes;
-
-        const cargo1 = {
-            id: '228',
-            ownerId: this.state.currentUser.id,
-
-            name: 'Cargo 1',
-
-            weight: '1',
-            width: '2',
-            height: '3',
-            length: '4',
-
-            source_location: 'Minsk',
-            destination: 'Paris',
-
-            transportation_cost: '700',
-        };
 
         const handleClickOpen = () => {
             this.setState({isDialogOpen: true})
@@ -151,12 +135,13 @@ export class CargoPage extends React.Component {
 
         return (
             <div>
-                <h1 style={{textAlign: 'center'}}> My Cargoes</h1>
+                <h1 style={{textAlign: 'center'}}> All Cargoes</h1>
                 <div>
                     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
                         {this.state.cargoes.length ? this.state.cargoes.map(cargo => this.createCargo(cargo))
                             : <span> Loading...</span>}
                     </div>
+                    {this.state.currentUser.role !== 'Admin' &&
                     <div style={{position: 'sticky', bottom: '100px'}}>
 
                         <div style={{
@@ -185,6 +170,7 @@ export class CargoPage extends React.Component {
                             {addDialog}
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         );

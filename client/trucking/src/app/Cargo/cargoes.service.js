@@ -3,6 +3,7 @@ export const cargoesService = {
     getOwnerCargoesById,
     addCargo,
     deleteCargo,
+    changeCargo,
 };
 
 function getOwnerCargoesById(ownerId) {
@@ -11,7 +12,7 @@ function getOwnerCargoesById(ownerId) {
         headers: {'Content-Type': 'application/json'},
     };
 
-    return fetch(`api/users/${ownerId}/cargo`, requestOptions)
+    return fetch(`api/${ownerId}/cargo`, requestOptions)
         .then(response => {
             return response.json();
         });
@@ -24,7 +25,20 @@ function addCargo(cargo, ownerId) {
         body: JSON.stringify(cargo)
     };
 
-    return fetch(`api/users/${ownerId}/cargo`, requestOptions)
+    return fetch(`api/${ownerId}/cargo`, requestOptions)
+        .then(res => {
+            // console.log(res);
+        });
+}
+
+function changeCargo(cargo, ownerId) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(cargo)
+    };
+
+    return fetch(`api/${ownerId}/cargo`, requestOptions)
         .then(res => {
             // console.log(res);
         });
@@ -37,7 +51,7 @@ function deleteCargo(cargo, ownerId) {
         body: JSON.stringify(cargo)
     };
 
-    return fetch(`api/users/${ownerId}/cargo`, requestOptions)
+    return fetch(`api/${ownerId}/cargo`, requestOptions)
         .then(res => {
             console.log(res);
         });
