@@ -47,27 +47,63 @@ public class TruckingApplication implements CommandLineRunner {
 
 		UserBack owner = new UserBack("Owner", "User", "owner", "owner", UserService.OWNER, false);
 		UserBack carrier = new UserBack("Carrier", "User", "carrier", "carrier", UserService.CARRIER, false);
+		UserBack carrier2 = new UserBack("Carrier2", "User", "carrier2", "carrier2", UserService.CARRIER, false);
+		UserBack carrier3 = new UserBack("Carrier3", "User", "carrier3", "carrier3", UserService.CARRIER, false);
 		UserBack admin = new UserBack("Admin", "User", "admin", "admin", UserService.ADMIN, false);
 		owner = authService.authorization(owner);
 		carrier = authService.authorization(carrier);
+		carrier2 = authService.authorization(carrier2);
+		carrier3 = authService.authorization(carrier3);
 		admin = authService.authorization(admin);
 
-		CargoBack cargo1 = new CargoBack(owner.getId(), "Alice",
+		CargoBack cargo1 = new CargoBack(owner.getId(), "Lamborghini",
 				40, 60, 160, 60,
 				"Minsk", "London", 666, "NEED_TO_DELIVER");
-		CargoBack cargo2 = new CargoBack(owner.getId(), "Bob",
+		CargoBack cargo2 = new CargoBack(owner.getId(), "Ferrari",
 				80, 90, 200, 90,
-				"Moscow", "London", 333, "ALREADY_ON_DELIVERING");
+				"Moscow", "Madrid", 333, "ALREADY_ON_DELIVERING");
+		CargoBack cargo3 = new CargoBack(owner.getId(), "Bentley",
+				80, 90, 200, 90,
+				"Paris", "Prague", 100, "ALREADY_ON_DELIVERING");
+		CargoBack cargo4 = new CargoBack(owner.getId(), "Camaro",
+				40, 60, 160, 60,
+				"Vilnius", "Rome", 666, "ALREADY_ON_DELIVERING");
+		CargoBack cargo5 = new CargoBack(owner.getId(), "Challenger",
+				40, 60, 160, 60,
+				"Vilnius", "Rome", 666, "ALREADY_ON_DELIVERING");
+		CargoBack cargo6 = new CargoBack(owner.getId(), "Mustang",
+				40, 60, 160, 60,
+				"Vilnius", "Rome", 666, "ALREADY_ON_DELIVERING");
 		cargo1 = cargoRepository.save(cargo1);
 		cargo2 = cargoRepository.save(cargo2);
+		cargo3 = cargoRepository.save(cargo3);
+		cargo4 = cargoRepository.save(cargo4);
+		cargo5 = cargoRepository.save(cargo5);
+		cargo6 = cargoRepository.save(cargo6);
 
 		List<String> route = new ArrayList<>();
 		route.add("Moscow");
 		route.add("Minsk");
-		route.add("London");
+		route.add("Madrid");
 		List<String> cargoes = new ArrayList<>();
 		cargoes.add(cargo2.getId());
-		transportationRepository.save(new TransportationBack(carrier.getId(), route, "Moscow", cargoes));
+		transportationRepository.save(new TransportationBack(carrier.getId(), route, route.get(0), cargoes));
+
+		List<String> route2 = new ArrayList<>();
+		route2.add(cargo3.getSource_location());
+		route2.add(cargo3.getDestination());
+		List<String> cargoes2 = new ArrayList<>();
+		cargoes2.add(cargo3.getId());
+		transportationRepository.save(new TransportationBack(carrier2.getId(), route2, route2.get(0), cargoes2));
+
+		List<String> route3 = new ArrayList<>();
+		route3.add(cargo4.getSource_location());
+		route3.add(cargo4.getDestination());
+		List<String> cargoes3 = new ArrayList<>();
+		cargoes3.add(cargo4.getId());
+		cargoes3.add(cargo5.getId());
+		cargoes3.add(cargo6.getId());
+		transportationRepository.save(new TransportationBack(carrier3.getId(), route3, route3.get(0), cargoes3));
 
 		for (CargoBack cargoBack : cargoRepository.findAll()) {
 			LOGGER.info(cargoBack.toString());
