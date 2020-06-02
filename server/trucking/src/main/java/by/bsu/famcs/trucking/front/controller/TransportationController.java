@@ -11,45 +11,35 @@ import java.util.logging.Logger;
 
 @CrossOrigin(origins={"http://localhost:3000"})
 @RestController
+@RequestMapping(path = "/api/{id}/transportation",
+        consumes = {MediaType.APPLICATION_JSON_VALUE},
+        produces = {MediaType.APPLICATION_JSON_VALUE})
 public class TransportationController {
 
     private static final Logger LOGGER = Logger.getLogger(TransportationController.class.getName());
 
-    private static final String PATH = "/api/{id}/transportation";
-
     @Autowired
     private TransportationService transportationService;
 
-    @GetMapping(path = PATH,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping
     public ResponseEntity<?> get(@PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> transportationService.get(id));
     }
 
-    @PostMapping(path = PATH,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping
     public ResponseEntity<?> post(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> transportationService.post(transportationBack, id));
     }
 
-    @DeleteMapping(path = PATH,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @DeleteMapping
     public ResponseEntity<?> delete(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
-        return ResponseCreator.body(() -> {
-            transportationService.delete(transportationBack, id);
-            return "Successfully deleted";
-        });
+        return ResponseCreator.emptyBody(() -> transportationService.delete(transportationBack, id));
     }
 
-    @PutMapping(path = PATH,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping
     public ResponseEntity<?> put(@RequestBody TransportationBack transportationBack, @PathVariable String id) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> transportationService.put(transportationBack, id));

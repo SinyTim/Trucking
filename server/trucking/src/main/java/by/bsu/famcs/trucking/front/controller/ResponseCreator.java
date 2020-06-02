@@ -11,6 +11,9 @@ public class ResponseCreator {
     public interface ResponseFunction<T> {
         T apply() throws ResourceAccessDeniedException, UserNotFoundException, FailedLoginException;
     }
+    public interface ResponseFunctionNoReturn<T> {
+        void apply() throws ResourceAccessDeniedException, UserNotFoundException, FailedLoginException;
+    }
     public static <T> ResponseEntity<?> body(ResponseFunction<T> function) {
         try {
             return ResponseEntity.ok(function.apply());
@@ -21,5 +24,12 @@ public class ResponseCreator {
         } catch (FailedLoginException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
+    }
+
+    public static <T> ResponseEntity<?> emptyBody(ResponseFunctionNoReturn<T> function) {
+        return body(() -> {
+            function.apply();
+            return "";
+        });
     }
 }
