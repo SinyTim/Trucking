@@ -1,0 +1,20 @@
+.navigation {
+  background: #6B9080;
+  height: 60px;
+  text-align: -webkit-right;
+}
+
+.nav-item {
+  color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.nav-item-div {
+  padding: 15px;
+}
+
+.main-div {
+  /*height: calc(100% - 60px);*/
+  display: flex;
+  background: #EAF4F4;
+}

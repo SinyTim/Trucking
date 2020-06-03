@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: trucking-ingress
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /*
+          backend:
+            serviceName: trucking-client
+            servicePort: 80
+        - path: /api/*
+          backend:
+            serviceName: trucking-server
+            servicePort: 8080
