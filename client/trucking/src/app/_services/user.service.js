@@ -1,5 +1,3 @@
-import {authHeader} from "../_helpers/auth-header";
-
 export const userService = {
     getAll,
     getById,
@@ -46,6 +44,10 @@ function addUser(adminId, user) {
 }
 
 function getById(id) {
-    const requestOptions = { method: 'GET', headers: authHeader() };
-    // return fetch(`/users/${id}`, requestOptions).then(handleResponse);
+    const requestOptions = {method: 'GET', headers: {'Content-Type': 'application/json'}};
+    return fetch(`api/${id}`, requestOptions)
+        .then(response => {
+            console.log(response)
+            return response.json();
+        });
 }
