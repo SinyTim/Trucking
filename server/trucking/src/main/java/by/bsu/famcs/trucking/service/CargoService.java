@@ -50,7 +50,7 @@ public class CargoService {
 
         if (user.getRole().equals(UserService.OWNER)) {
             if (!present.get().getOwnerId().equals(user.getId())) {
-                throw new ResourceAccessException("You aren't the owner of this resource");
+                throw new ResourceAccessDeniedException("You aren't the owner of this resource");
             }
         }
         return present.get();
