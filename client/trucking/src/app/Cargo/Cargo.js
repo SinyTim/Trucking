@@ -56,6 +56,10 @@ export default class Cargo extends React.Component {
         }
     }
 
+    checkCargo() {
+        // this.setState({cargo: {...this.state.cargo, checked: true}});
+    }
+
     saveChangesInCurrentCargo() {
         this.setState({editMode: false});
         if (document.getElementById(this.state.cargo.id + 'ok')) {
@@ -164,8 +168,7 @@ export default class Cargo extends React.Component {
                             onClick={this.saveChangesInCurrentCargo.bind(this)}> OK </Button>
                     }
 
-
-                    {this.state.ownerRole === 'Carrier' && <input type="checkbox"/>}
+                    {this.state.ownerRole === 'Carrier' && <input type="checkbox" onClick={this.checkCargo.bind(this)}/>}
 
                     {this.state.ownerRole !== 'Owner' && <div style={{height: '20px'}}>  </div>}
 
