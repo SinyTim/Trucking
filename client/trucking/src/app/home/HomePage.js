@@ -20,17 +20,8 @@ export class HomePage extends React.Component {
         const { currentUser, userFromApi } = this.state;
         return (
             <div style={{height: '100%'}}>
-                <h1>Home</h1>
+                <h1>Hello, {currentUser.firstName}</h1>
                 <p>Your role is: <strong>{currentUser.role}</strong>.</p>
-                <p>This page can be accessed by all authenticated users.</p>
-                <div>
-                    Current user from secure api end point:
-                    {userFromApi &&
-                    <ul>
-                        <li>{userFromApi.firstName} {userFromApi.lastName}</li>
-                    </ul>
-                    }
-                </div>
             </div>
         );
     }
