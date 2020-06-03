@@ -37,6 +37,22 @@ public class CargoService {
         }
     }
 
+    public CargoBack getCargo(String id, String cargoId) throws UserNotFoundException, ResourceAccessDeniedException {
+        UserBack user = userService.findById(id);
+        AtomicReference<CargoBack> present = new AtomicReference<>(null);
+        cargoRepository.findById(cargoId).ifPresent(present::set);
+        if (present.get() == null) {
+            throw new ResourceAccessDeniedException("No cargo with such id");
+        }
+
+        if (user.getRole().equals(UserService.OWNER)) {
+            if (!present.get().getOwnerId().equals(user.getId())) {
+                throw new ResourceAccessException("You aren't the owner of this resource");
+            }
+        }
+        return present.get();
+    }
+
     public CargoBack post(CargoBack cargo, String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
         if (!user.getRole().equals(UserService.OWNER)) {
@@ -62,7 +78,7 @@ public class CargoService {
             throw new ResourceAccessDeniedException(e.getMessage());
         }
         if (!present.get()) {
-            throw new UserNotFoundException("No cargo with such id");
+            throw new ResourceAccessDeniedException("No cargo with such id");
         }
     }
 
