@@ -163,11 +163,11 @@ export class CargoPage extends React.Component {
                                 color: 'white',
                                 fontSize: '45px'
                             }}
-                                    onClick={handleClickOpen}
+                                    onClick={this.state.currentUser.role === 'Owner' && handleClickOpen}
                             >
                                 <Icon style={{fontSize: '45px'}}> add </Icon>
                             </Button>
-                            {addDialog}
+                            {this.state.currentUser.role === 'Owner' && addDialog}
                         </div>
                     </div>
                     }

@@ -9,6 +9,7 @@ import {PrivateRoute} from "./app/PrivateRoute";
 import AdminPage from "./app/admin/AdminPage";
 import './App.css'
 import {CargoPage} from "./app/Cargo/CargoPage";
+import {TransportationsPage} from "./app/Transportations/TransportationsPage";
 
 class App extends React.Component {
     constructor(props) {
@@ -45,6 +46,9 @@ class App extends React.Component {
                                 <div className="nav-item-div">
                                     <Link to="/cargoes" className="nav-item">Cargoes</Link>
                                 </div>
+                                <div className="nav-item-div">
+                                    <Link to="/transportations" className="nav-item">Transportations</Link>
+                                </div>
                                 {isAdmin && <div className="nav-item-div">
                                     {isAdmin && <Link to="/admin" className="nav-item">Users</Link>}
                                 </div>}
@@ -57,6 +61,7 @@ class App extends React.Component {
                     <div className="main-div">
                         <PrivateRoute exact path="/" component={HomePage}/>
                         <PrivateRoute exact path="/cargoes" component={CargoPage}/>
+                        <PrivateRoute exact path="/transportations" component={TransportationsPage}/>
                         <PrivateRoute path="/admin" roles={[Role.Admin]} component={AdminPage}/>
                         <Route path="/login" component={LoginPage}/>
                     </div>
