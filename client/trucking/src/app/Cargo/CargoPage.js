@@ -163,7 +163,7 @@ export class CargoPage extends React.Component {
                                 color: 'white',
                                 fontSize: '45px'
                             }}
-                                    onClick={this.state.currentUser.role === 'Owner' && handleClickOpen}
+                                    onClick={handleClickOpen}
                             >
                                 <Icon style={{fontSize: '45px'}}> add </Icon>
                             </Button>

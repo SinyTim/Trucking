@@ -4,6 +4,7 @@ export const cargoesService = {
     addCargo,
     deleteCargo,
     changeCargo,
+    getCargo,
 };
 
 function getOwnerCargoesById(ownerId) {
@@ -13,6 +14,18 @@ function getOwnerCargoesById(ownerId) {
     };
 
     return fetch(`api/${ownerId}/cargo`, requestOptions)
+        .then(response => {
+            return response.json();
+        });
+}
+
+function getCargo(ownerId, cargoId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    };
+
+    return fetch(`api/${ownerId}/cargo/${cargoId}`, requestOptions)
         .then(response => {
             return response.json();
         });

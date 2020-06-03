@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import {transportationsService} from "./transportations.service";
+import {cargoesService} from "../Cargo/cargoes.service";
 
 export default class Transportation extends React.Component {
 
@@ -12,10 +13,17 @@ export default class Transportation extends React.Component {
             ownerId: props.ownerId,
             ownerRole: props.ownerRole,
             editMode: false,
+            cargoNames: [],
         };
     }
 
     componentDidMount() {
+        const cargoNamesPromises = this.state.transportation.cargoes.map(
+            cargoId => cargoesService.getCargo(this.state.ownerId, cargoId)
+                .then(res => res.name)
+        );
+
+        Promise.all(cargoNamesPromises).then((newCargoNames)=> this.setState({cargoNames: [ ...this.state.cargoNames, ...newCargoNames ]}));
     }
 
     cardStyle = {
@@ -129,9 +137,7 @@ export default class Transportation extends React.Component {
 
                 <div style={this.cardDataStyle}>
                     Cargoes:
-                    {this.state.transportation.cargoes.length ? this.state.transportation.cargoes.map(cargo =>
-                            <span style={{marginRight: '10px'}}> {cargo} </span>)
-                        : <span> Loading...</span>}
+                    {this.state.cargoNames.length ? <span style={{marginRight: '20px'}}> {this.state.cargoNames.map(cargoName => <span> {cargoName} </span>)} </span> : <span> Loading...</span>}
                 </div>
             </div>
         );
