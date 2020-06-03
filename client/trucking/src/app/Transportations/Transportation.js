@@ -122,18 +122,13 @@ export default class Transportation extends React.Component {
                 </div>
 
                 <div style={Object.assign({}, this.cardDataStyle, {display: 'flex', flexDirection: 'row'})}>
-                    <div
-                        style={{
-                            margin: '10px 20px 0 0',
-                            display: 'flex'
-                        }}> Current location:
-                    </div>
-                    <div id={this.state.transportation.id + 'currentLocation'}
+                    Current location:
+                    <span id={this.state.transportation.id + 'currentLocation'}
                          style={{
-                             margin: '10px 20px 0 20px',
+                             margin: '0 0 0 20px',
                              display: 'flex'
                          }}>                     {this.state.transportation.currentLocation}
-                    </div>
+                    </span>
                     <input hidden={!editMode} style={{width: '80px'}} id={this.state.transportation.id + 'input'}
                            type="text"
                            onChange={this.changeCurrentLocation.bind(this)}/>
