@@ -6,8 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.security.auth.login.FailedLoginException;
+import java.util.logging.Logger;
 
 public class ResponseCreator {
+
+    private static final Logger LOGGER = Logger.getLogger(ResponseCreator.class.getName());
+
     public interface ResponseFunction<T> {
         T apply() throws ResourceAccessDeniedException, UserNotFoundException, FailedLoginException;
     }
@@ -18,11 +22,18 @@ public class ResponseCreator {
         try {
             return ResponseEntity.ok(function.apply());
         } catch (ResourceAccessDeniedException e) {
+            LOGGER.warning(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (UserNotFoundException e) {
+            LOGGER.warning(e.getMessage());
             return ResponseEntity.notFound().build();
         } catch (FailedLoginException e) {
+            LOGGER.warning(e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
