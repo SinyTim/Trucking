@@ -31,7 +31,7 @@ public class TransportationService {
             result = transportationRepository.findAllByCarrierId(id);
         } else {
             result = transportationRepository.findAll().stream().filter(
-                    transportationBack -> transportationBack.getCargoes().stream().anyMatch(id::equals)
+                    transportationBack -> transportationBack.getCargoes().stream().noneMatch(id::equals)
             ).collect(Collectors.toList());
         }
         return result;
