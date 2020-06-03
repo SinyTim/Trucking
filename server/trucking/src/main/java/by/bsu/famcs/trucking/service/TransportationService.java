@@ -11,10 +11,13 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class TransportationService {
+
+    private static final Logger LOGGER = Logger.getLogger(TransportationService.class.getName());
 
     @Autowired
     private TransportationRepository transportationRepository;
@@ -41,6 +44,13 @@ public class TransportationService {
                 transportationBack -> transportationBack.setCargoes(transportationBack.getCargoes().stream().map(
                         s -> cargoService.findById(s).getName()).collect(Collectors.toList()))
         );
+        result.forEach(transportationBack -> {
+            try {
+                transportationBack.setCarrierId(userService.unsafeFindById(transportationBack.getCarrierId()).getUsername());
+            } catch (UserNotFoundException e) {
+                LOGGER.warning("Cannot find carrier for transportation by id");
+            }
+        });
         return result;
     }
 
