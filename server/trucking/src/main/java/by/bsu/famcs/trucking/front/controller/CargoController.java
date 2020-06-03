@@ -29,7 +29,7 @@ public class CargoController {
     }
 
     @GetMapping(path = "/{cargoId}")
-    public ResponseEntity<?> getCargo(@PathVariable String id, @PathVariable String cargoId) {
+    public ResponseEntity<?> getCargo(@PathVariable("id") String id, @PathVariable("cargoId") String cargoId) {
         LOGGER.info("<--> " + Thread.currentThread().getStackTrace()[1] + " " + id);
         return ResponseCreator.body(() -> cargoService.getCargo(id, cargoId));
     }
