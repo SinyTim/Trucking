@@ -21,6 +21,10 @@ Team:
 * [Alexandra Kunitskaya](https://github.com/kunitskaja) - Front-end.
 * [Anton Barsky](https://github.com/JustTohich) - Back-end.
 
+![use-case](/diagrams/use-case.png)
+![sequence_diagram](/diagrams/sequence_diagram.png)
+![db](/diagrams/db.png)
+
 ![Owner](/diagrams/ui/owner.png)
 ![Carrier](/diagrams/ui/carrier.png)
 ![Admin](/diagrams/ui/admin.png)
