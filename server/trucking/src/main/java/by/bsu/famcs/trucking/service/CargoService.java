@@ -11,6 +11,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class CargoService {
@@ -20,6 +21,12 @@ public class CargoService {
 
     @Autowired
     private UserService userService;
+
+    public CargoBack findById(String id) {
+        AtomicReference<CargoBack> cargoBack = new AtomicReference<>(null);
+        cargoRepository.findById(id).ifPresent(cargoBack::set);
+        return cargoBack.get();
+    }
 
     public List<CargoBack> get(String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
