@@ -11,22 +11,16 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class TransportationService {
-
-    private static final Logger LOGGER = Logger.getLogger(TransportationService.class.getName());
 
     @Autowired
     private TransportationRepository transportationRepository;
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private CargoService cargoService;
 
     public List<TransportationBack> get(String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
@@ -40,17 +34,6 @@ public class TransportationService {
                     transportationBack -> transportationBack.getCargoes().stream().anyMatch(id::equals)
             ).collect(Collectors.toList());
         }
-        result.forEach(
-                transportationBack -> transportationBack.setCargoes(transportationBack.getCargoes().stream().map(
-                        s -> cargoService.findById(s).getName()).collect(Collectors.toList()))
-        );
-        result.forEach(transportationBack -> {
-            try {
-                transportationBack.setCarrierId(userService.unsafeFindById(transportationBack.getCarrierId()).getUsername());
-            } catch (UserNotFoundException e) {
-                LOGGER.warning("Cannot find carrier for transportation by id");
-            }
-        });
         return result;
     }
 
