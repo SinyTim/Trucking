@@ -22,17 +22,26 @@ public class TransportationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CargoService cargoService;
+
     public List<TransportationBack> get(String id) throws UserNotFoundException, ResourceAccessDeniedException {
         UserBack user = userService.findById(id);
+        List<TransportationBack> result;
         if (user.getRole().equals(UserService.ADMIN)) {
-            return transportationRepository.findAll();
+            result = transportationRepository.findAll();
         } else if (user.getRole().equals(UserService.CARRIER)) {
-            return transportationRepository.findAllByCarrierId(id);
+            result = transportationRepository.findAllByCarrierId(id);
         } else {
-            return transportationRepository.findAll().stream().filter(
+            result = transportationRepository.findAll().stream().filter(
                     transportationBack -> transportationBack.getCargoes().stream().anyMatch(id::equals)
             ).collect(Collectors.toList());
         }
+        result.forEach(
+                transportationBack -> transportationBack.setCargoes(transportationBack.getCargoes().stream().map(
+                        s -> cargoService.findById(s).getName()).collect(Collectors.toList()))
+        );
+        return result;
     }
 
     public TransportationBack post(TransportationBack transportationBack, String id) throws UserNotFoundException, ResourceAccessDeniedException {
