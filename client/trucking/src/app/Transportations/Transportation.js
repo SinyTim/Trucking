@@ -80,7 +80,7 @@ export default class Transportation extends React.Component {
         return (
             <div style={this.cardStyle}>
                 <div style={this.cardHeaderStyle}>
-                    <div>
+                    <div style={{fontSize: '30px'}}>
                         {this.state.transportation.route[0]} - {this.state.transportation.route[this.state.transportation.route.length - 1]}
 
                         {this.state.ownerRole === 'Carrier' &&
@@ -115,14 +115,14 @@ export default class Transportation extends React.Component {
                 </div>
 
                 <div style={this.cardDataStyle}>
-                    Route:
+                    <b> Route: </b>
                     {this.state.transportation.route.length ? this.state.transportation.route.map(city =>
                             <span style={{marginRight: '10px'}}> {city} </span>)
                         : <span> Loading...</span>}
                 </div>
 
                 <div style={Object.assign({}, this.cardDataStyle, {display: 'flex', flexDirection: 'row'})}>
-                    Current location:
+                    <b> Current location: </b>
                     <span id={this.state.transportation.id + 'currentLocation'}
                          style={{
                              margin: '0 0 0 20px',
@@ -135,12 +135,12 @@ export default class Transportation extends React.Component {
                 </div>
 
                 <div style={this.cardDataStyle}>
-                    Cargoes:
+                    <b>  Cargoes: </b>
                     {this.state.cargoNames.length ? <span style={{marginRight: '20px'}}> {this.state.cargoNames.map(cargoName => <span> {cargoName} </span>)} </span> : <span> Loading...</span>}
                 </div>
 
                 <div style={this.cardDataStyle}>
-                    Carrier:
+                    <b>  Carrier: </b>
                     <span> {this.state.carrier} </span>
                 </div>
             </div>

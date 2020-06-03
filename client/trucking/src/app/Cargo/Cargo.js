@@ -208,7 +208,7 @@ export default class Cargo extends React.Component {
                 </div>
 
                 <div style={Object.assign({}, this.cardDataSectionStyle, {flexDirection: 'row'})}>
-                    <div style={this.cardDataStyle}>{'Transportation cost: '}</div>
+                    <div style={this.cardDataStyle}> <b> {'Transportation cost: '} </b></div>
                     <div id={this.state.cargo.id + 'transportation_cost'}
                          style={this.cardDataStyle}>{this.state.cargo.transportation_cost}</div>
                     <input hidden={!editMode} style={{width: '80px', margin: '0 10px'}}
@@ -217,9 +217,9 @@ export default class Cargo extends React.Component {
                 </div>
 
                 <div style={Object.assign({}, this.cardDataSectionStyle, {flexDirection: 'column'})}>
-                    <div style={this.cardDataStyle}>{'Parameters: '} </div>
+                    <div style={this.cardDataStyle}><b>{'Parameters: '}</b> </div>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div style={Object.assign({}, this.cardDataStyle, {marginLeft: '80px'})}> {'width: '} </div>
+                        <div style={Object.assign({}, this.cardDataStyle, {marginLeft: '80px'})}>{'width: '} </div>
                         <div id={this.state.cargo.id + 'width'}
                              style={Object.assign({}, this.cardDataStyle, {marginLeft: '10px'})}> {this.state.cargo.width} </div>
 
@@ -250,7 +250,7 @@ export default class Cargo extends React.Component {
                     </div>
 
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div style={this.cardDataStyle}> {'Weight: '} </div>
+                        <div style={this.cardDataStyle}><b>{'Weight: '} </b></div>
                         <div id={this.state.cargo.id + 'weight'}
                              style={Object.assign({}, this.cardDataStyle, {marginLeft: '10px'})}> {this.state.cargo.weight} </div>
                         <input hidden={!editMode} style={{width: '80px', margin: '0 10px'}}
@@ -262,7 +262,7 @@ export default class Cargo extends React.Component {
 
                 <div style={this.cardDataSectionStyle}>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <div style={this.cardDataStyle}> {'Status: '} </div>
+                        <div style={this.cardDataStyle}> <b>{'Status: '} </b></div>
                         <div
                             style={Object.assign({}, this.cardDataStyle, {marginLeft: '10px'})}> {this.state.cargo.status} </div>
                     </div>
