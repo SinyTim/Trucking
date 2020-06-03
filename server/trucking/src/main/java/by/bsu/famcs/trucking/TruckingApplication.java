@@ -46,11 +46,13 @@ public class TruckingApplication implements CommandLineRunner {
 		transportationRepository.deleteAll();
 
 		UserBack owner = new UserBack("Owner", "User", "owner", "owner", UserService.OWNER, false);
+		UserBack owner2 = new UserBack("Owner2", "User", "owner2", "owner2", UserService.OWNER, false);
 		UserBack carrier = new UserBack("Carrier", "User", "carrier", "carrier", UserService.CARRIER, false);
 		UserBack carrier2 = new UserBack("Carrier2", "User", "carrier2", "carrier2", UserService.CARRIER, false);
 		UserBack carrier3 = new UserBack("Carrier3", "User", "carrier3", "carrier3", UserService.CARRIER, false);
 		UserBack admin = new UserBack("Admin", "User", "admin", "admin", UserService.ADMIN, false);
 		owner = authService.authorization(owner);
+		owner2 = authService.authorization(owner2);
 		carrier = authService.authorization(carrier);
 		carrier2 = authService.authorization(carrier2);
 		carrier3 = authService.authorization(carrier3);
@@ -71,7 +73,7 @@ public class TruckingApplication implements CommandLineRunner {
 		CargoBack cargo5 = new CargoBack(owner.getId(), "Challenger",
 				40, 60, 160, 60,
 				"Vilnius", "Rome", 666, "ALREADY_ON_DELIVERING");
-		CargoBack cargo6 = new CargoBack(owner.getId(), "Mustang",
+		CargoBack cargo6 = new CargoBack(owner2.getId(), "Mustang",
 				40, 60, 160, 60,
 				"Vilnius", "Rome", 666, "ALREADY_ON_DELIVERING");
 		cargo1 = cargoRepository.save(cargo1);

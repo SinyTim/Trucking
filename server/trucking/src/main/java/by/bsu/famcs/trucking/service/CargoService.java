@@ -22,9 +22,12 @@ public class CargoService {
     @Autowired
     private UserService userService;
 
-    public CargoBack findById(String id) {
+    public CargoBack findById(String id) throws ResourceAccessDeniedException {
         AtomicReference<CargoBack> cargoBack = new AtomicReference<>(null);
         cargoRepository.findById(id).ifPresent(cargoBack::set);
+        if (cargoBack.get() == null) {
+            throw new ResourceAccessDeniedException("No cargo with such id");
+        }
         return cargoBack.get();
     }
 
